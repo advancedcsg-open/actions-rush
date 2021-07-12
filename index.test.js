@@ -1,23 +1,15 @@
-const wait = require('./wait');
-const process = require('process');
-const cp = require('child_process');
-const path = require('path');
+const process = require('process')
+const cp = require('child_process')
+const path = require('path')
 
-test('throws invalid number', async () => {
-  await expect(wait('foo')).rejects.toThrow('milliseconds not a number');
-});
+// shows how main runner will run a javascript action with env / stdout protocol
+test('test main runs', () => {
+  const ip = path.join(__dirname, 'main.js');
+  console.log(cp.execSync(`node ${ip}`, {env: process.env}).toString());
+})
 
-test('wait 500 ms', async () => {
-  const start = new Date();
-  await wait(500);
-  const end = new Date();
-  var delta = Math.abs(end - start);
-  expect(delta).toBeGreaterThanOrEqual(500);
-});
-
-// shows how the runner will run a javascript action with env / stdout protocol
-test('test runs', () => {
-  process.env['INPUT_MILLISECONDS'] = 500;
-  const ip = path.join(__dirname, 'index.js');
+// shows how main runner will run a javascript action with env / stdout protocol
+test('test cleanup runs', () => {
+  const ip = path.join(__dirname, 'cleanup.js');
   console.log(cp.execSync(`node ${ip}`, {env: process.env}).toString());
 })
