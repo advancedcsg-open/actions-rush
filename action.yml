@@ -4,4 +4,4 @@ description: 'Run rush install if required and manage caching for optimal perfor
 runs:
   using: 'node12'
   main: 'dist/main/index.js'
-  cleanup: 'dist/cleanup/index.js'
+  post: 'dist/cleanup/index.js'
