@@ -1,13 +1,7 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
-inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
-    required: true
-    default: '1000'
-outputs:
-  time: # output will be available to future steps
-    description: 'The message to output'
+---
+name: 'Rush'
+description: 'Run rush install if required and manage caching for optimal performance and incremental builds.'
 runs:
   using: 'node12'
-  main: 'dist/index.js'
+  main: 'dist/main/index.js'
+  post: 'dist/cleanup/index.js'
