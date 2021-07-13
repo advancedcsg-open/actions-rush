@@ -7,9 +7,7 @@
     "lint": "standard --fix",
     "prepare": "npm run prepareMain && npm run prepareCleanup",
     "prepareMain": "ncc build main.js -o dist/main --source-map --license licenses.txt",
-    "prepareCleanup": "ncc build cleanup.js -o dist/cleanup --source-map --license licenses.txt",
-    "test": "jest",
-    "all": "npm run prepare && npm run test"
+    "prepareCleanup": "ncc build cleanup.js -o dist/cleanup --source-map --license licenses.txt"
   },
   "repository": {
     "type": "git",
@@ -35,7 +33,7 @@
   },
   "devDependencies": {
     "@vercel/ncc": "^0.27.0",
-    "jest": "^26.6.3",
-    "standard": "^16.0.3"
+    "standard": "^16.0.3",
+    "eslint": "^7.12.1"
   }
 }
