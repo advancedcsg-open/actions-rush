@@ -9,8 +9,8 @@ const hasha = __nccwpck_require__(4933)
 const repoState = hasha.fromFileSync('common/config/rush/repo-state.json', { algorithm: 'md5' })
 
 module.exports = {
-  paths: [ 'common/temp' ],
-  restoreKeys: [ 'rush-temp-' ],
+  paths: ['common/temp'],
+  restoreKeys: ['rush-temp-'],
   key: `rush-temp-${repoState}`
 }
 
@@ -24,15 +24,18 @@ const core = __nccwpck_require__(2186)
 const cache = __nccwpck_require__(7799)
 const exec = __nccwpck_require__(1514)
 
-const { paths, restoreKeys, key }= __nccwpck_require__(307)
+const { paths, restoreKeys, key } = __nccwpck_require__(307)
 
-async function run() {
+async function run () {
   try {
     const cacheKey = await cache.restoreCache(paths, key, restoreKeys)
 
     // run rush install if no cacheKey returned or repo state has changed
     if (typeof cacheKey === 'undefined' || cacheKey !== key) {
       await exec.exec('node', ['common/scripts/install-run-rush.js', 'install'])
+      core.saveState('storeCache', true)
+    } else {
+      core.saveState('storeCache', false)
     }
   } catch (error) {
     core.setFailed(error.message)

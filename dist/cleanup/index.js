@@ -9,8 +9,8 @@ const hasha = __nccwpck_require__(4933)
 const repoState = hasha.fromFileSync('common/config/rush/repo-state.json', { algorithm: 'md5' })
 
 module.exports = {
-  paths: [ 'common/temp' ],
-  restoreKeys: [ 'rush-temp-' ],
+  paths: ['common/temp'],
+  restoreKeys: ['rush-temp-'],
   key: `rush-temp-${repoState}`
 }
 
@@ -23,13 +23,19 @@ module.exports = {
 const core = __nccwpck_require__(2186)
 const cache = __nccwpck_require__(7799)
 
-const { paths, restoreKeys, key }= __nccwpck_require__(307)
+const { paths, key } = __nccwpck_require__(307)
 
-async function run() {
+async function run () {
   try {
-    await cache.saveCache(paths, key)
+    if (core.getState('storeState')) {
+      await cache.saveCache(paths, key)
+    }
   } catch (error) {
-    core.setFailed(error.message)
+    if (error.message.includes('Cache already exists')) {
+      core.info(`Cache entry ${key} has already been created by another worfklow`)
+    } else {
+      throw err
+    }
   }
 }
 
