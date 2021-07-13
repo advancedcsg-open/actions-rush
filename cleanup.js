@@ -1,13 +1,17 @@
 const core = require('@actions/core')
 const cache = require('@actions/cache')
 
-const { paths, restoreKeys, key }= require('./cache')
+const { paths, key }= require('./cache')
 
 async function run() {
   try {
     await cache.saveCache(paths, key)
   } catch (error) {
-    core.setFailed(error.message)
+    if (err.message.includes("Cache already exists")) {
+      core.info(`Cache entry ${key} has already been created by another worfklow`);
+    } else {
+      throw err;
+    }
   }
 }
 
