@@ -1,7 +1,11 @@
 ---
 name: 'Rush'
+author: Martin Reynolds
 description: 'Run rush install if required and manage caching for optimal performance and incremental builds.'
 runs:
   using: 'node12'
   main: 'dist/main/index.js'
   post: 'dist/cleanup/index.js'
+branding:
+  icon: 'check'
+  color: 'gray-dark'
