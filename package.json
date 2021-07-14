@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "standard --fix",
-    "prepare": "npm run prepareMain && npm run prepareCleanup",
-    "prepareMain": "ncc build main.js -o dist/main --source-map --license licenses.txt",
-    "prepareCleanup": "ncc build cleanup.js -o dist/cleanup --source-map --license licenses.txt"
+    "build": "npm run buildMain && npm run buildCleanup",
+    "buildMain": "ncc build src/main.js -o dist/main --source-map --license licenses.txt",
+    "buildCleanup": "ncc build src/cleanup.js -o dist/cleanup --source-map --license licenses.txt"
   },
   "repository": {
     "type": "git",
@@ -39,6 +39,11 @@
     "cz-conventional-changelog": "^3.2.0",
     "eslint": "^7.12.1",
     "standard": "^16.0.3"
+  },
+  "standard": {
+    "ignore": [
+      "/dist/"
+    ]
   },
   "config": {
     "commitizen": {

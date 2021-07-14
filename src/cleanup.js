@@ -12,7 +12,7 @@ async function run () {
     if (error.message.includes('Cache already exists')) {
       core.info(`Cache entry ${key} has already been created by another worfklow`)
     } else {
-      throw err
+      throw error
     }
   }
 }
