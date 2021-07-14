@@ -16,11 +16,6 @@ jobs:
         run: npm run build
       - name: Commit changes
         run: |
-          git config --global user.name 'GitHub'
-          git config --global user.email 'actions@noreply.github.com'
-          git add .
-          git status | grep modified
-          if [ $? -eq 0 ]
-            git commit -am "ci: build dist with updated dependencies [skip-ci]"
-            git push
-          fi
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git diff-index --quiet HEAD || (git commit -a -m'ci: update dist files [bot] [skip-ci]' --allow-empty && git push -f)
