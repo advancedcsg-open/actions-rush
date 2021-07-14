@@ -1,7 +1,7 @@
 {
-  "name": "javascript-action",
-  "version": "1.0.0",
-  "description": "JavaScript Action Template",
+  "name": "@advancedcsg/actions-rush-helper",
+  "version": "1.0.1",
+  "description": "GitHub Action RushJS helper",
   "main": "index.js",
   "scripts": {
     "lint": "standard --fix",

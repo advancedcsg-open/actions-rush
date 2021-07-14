@@ -1,5 +1,5 @@
 ---
-name: 'Rush'
+name: 'RushJS Helper'
 description: 'Run rush install if required and manage caching for optimal performance and incremental builds.'
 runs:
   using: 'node12'
