@@ -1,4 +1,4 @@
-name: Dependabot Build
+name: Build
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
         run: npm run build
       - name: Commit changes
         run: |
-          git config --global user.name 'Dependabot'
-          git config --global user.email 'dependabot@noreply.github.com'
+          git config --global user.name 'GitHub'
+          git config --global user.email 'actions@noreply.github.com'
           git commit -am "ci: build dist with updated dependencies [skip-ci]"
           git push
