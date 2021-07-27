@@ -15,6 +15,14 @@ Used to better manage rush inside a workflow. Manages caching of packages to ens
 ---
 This action requires rush version 5.47.0 or newer.
 
+### Inputs
+---
+#### `package-manager`
+Specifies the package manager used by your rush repository. Valid values are:
+- `pnpm` (default)
+- `npm`
+- `yarn`
+
 ### Example
 ---
 ```yaml
