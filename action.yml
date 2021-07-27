@@ -9,3 +9,8 @@ runs:
 branding:
   icon: 'check'
   color: 'gray-dark'
+inputs:
+  package-manager:
+    description: 'Package manager used by the project'
+    required: false
+    default: 'pnpm'
