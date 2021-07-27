@@ -1,8 +1,23 @@
 const hasha = require('hasha')
-const repoState = hasha.fromFileSync('common/config/rush/repo-state.json', { algorithm: 'md5' })
 
-module.exports = {
-  paths: ['common/temp'],
-  restoreKeys: ['rush-temp-'],
-  key: `rush-temp-${repoState}`
+function getLockfile (packageManager) {
+  const packageManagers = {
+    npm: 'common/config/rush/npm-shrinkwrap.json',
+    pnpm: 'common/config/rush/shrinkwrap.yaml',
+    yarn: 'common/config/rush/yarn.lock'
+  }
+
+  const lockfile = packageManagers[packageManager]
+  if (!lockfile) throw new Error('Invalid package manager supplied. Valid values are `pnpm`, `npm` or `yarn`')
+  return lockfile
+}
+
+module.exports = (packageManager) => {
+  const repoState = hasha.fromFileSync(getLockfile(packageManager), { algorithm: 'md5' })
+
+  return {
+    paths: ['common/temp'],
+    restoreKeys: ['rush-temp-'],
+    key: `rush-temp-${repoState}`
+  }
 }

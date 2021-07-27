@@ -1,9 +1,10 @@
 const core = require('@actions/core')
 const cache = require('@actions/cache')
 
-const { paths, key } = require('./cache')
-
 async function run () {
+  const paths = core.getState('cachePaths')
+  const key = core.getState('cacheKey')
+
   try {
     if (core.getState('storeState')) {
       await cache.saveCache(paths, key)
