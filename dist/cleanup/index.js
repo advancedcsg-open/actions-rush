@@ -48350,201 +48350,6 @@ DelayedStream.prototype._checkIfMaxDataSizeExceeded = function() {
 
 /***/ }),
 
-/***/ 4933:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-const fs = __nccwpck_require__(5747);
-const path = __nccwpck_require__(5622);
-const crypto = __nccwpck_require__(6417);
-const isStream = __nccwpck_require__(4191);
-
-const {Worker} = (() => {
-	try {
-		return __nccwpck_require__(5013);
-	} catch (_) {
-		return {};
-	}
-})();
-
-let worker; // Lazy
-let taskIdCounter = 0;
-const tasks = new Map();
-
-const recreateWorkerError = sourceError => {
-	const error = new Error(sourceError.message);
-
-	for (const [key, value] of Object.entries(sourceError)) {
-		if (key !== 'message') {
-			error[key] = value;
-		}
-	}
-
-	return error;
-};
-
-const createWorker = () => {
-	worker = new Worker(__nccwpck_require__.ab + "thread.js");
-
-	worker.on('message', message => {
-		const task = tasks.get(message.id);
-		tasks.delete(message.id);
-
-		if (tasks.size === 0) {
-			worker.unref();
-		}
-
-		if (message.error === undefined) {
-			task.resolve(message.value);
-		} else {
-			task.reject(recreateWorkerError(message.error));
-		}
-	});
-
-	worker.on('error', error => {
-		// Any error here is effectively an equivalent of segfault, and have no scope, so we just throw it on callback level
-		throw error;
-	});
-};
-
-const taskWorker = (method, args, transferList) => new Promise((resolve, reject) => {
-	const id = taskIdCounter++;
-	tasks.set(id, {resolve, reject});
-
-	if (worker === undefined) {
-		createWorker();
-	}
-
-	worker.ref();
-	worker.postMessage({id, method, args}, transferList);
-});
-
-const hasha = (input, options = {}) => {
-	let outputEncoding = options.encoding || 'hex';
-
-	if (outputEncoding === 'buffer') {
-		outputEncoding = undefined;
-	}
-
-	const hash = crypto.createHash(options.algorithm || 'sha512');
-
-	const update = buffer => {
-		const inputEncoding = typeof buffer === 'string' ? 'utf8' : undefined;
-		hash.update(buffer, inputEncoding);
-	};
-
-	if (Array.isArray(input)) {
-		input.forEach(update);
-	} else {
-		update(input);
-	}
-
-	return hash.digest(outputEncoding);
-};
-
-hasha.stream = (options = {}) => {
-	let outputEncoding = options.encoding || 'hex';
-
-	if (outputEncoding === 'buffer') {
-		outputEncoding = undefined;
-	}
-
-	const stream = crypto.createHash(options.algorithm || 'sha512');
-	stream.setEncoding(outputEncoding);
-	return stream;
-};
-
-hasha.fromStream = async (stream, options = {}) => {
-	if (!isStream(stream)) {
-		throw new TypeError('Expected a stream');
-	}
-
-	return new Promise((resolve, reject) => {
-		// TODO: Use `stream.pipeline` and `stream.finished` when targeting Node.js 10
-		stream
-			.on('error', reject)
-			.pipe(hasha.stream(options))
-			.on('error', reject)
-			.on('finish', function () {
-				resolve(this.read());
-			});
-	});
-};
-
-if (Worker === undefined) {
-	hasha.fromFile = async (filePath, options) => hasha.fromStream(fs.createReadStream(filePath), options);
-	hasha.async = async (input, options) => hasha(input, options);
-} else {
-	hasha.fromFile = async (filePath, {algorithm = 'sha512', encoding = 'hex'} = {}) => {
-		const hash = await taskWorker('hashFile', [algorithm, filePath]);
-
-		if (encoding === 'buffer') {
-			return Buffer.from(hash);
-		}
-
-		return Buffer.from(hash).toString(encoding);
-	};
-
-	hasha.async = async (input, {algorithm = 'sha512', encoding = 'hex'} = {}) => {
-		if (encoding === 'buffer') {
-			encoding = undefined;
-		}
-
-		const hash = await taskWorker('hash', [algorithm, input]);
-
-		if (encoding === undefined) {
-			return Buffer.from(hash);
-		}
-
-		return Buffer.from(hash).toString(encoding);
-	};
-}
-
-hasha.fromFileSync = (filePath, options) => hasha(fs.readFileSync(filePath), options);
-
-module.exports = hasha;
-
-
-/***/ }),
-
-/***/ 4191:
-/***/ ((module) => {
-
-"use strict";
-
-
-const isStream = stream =>
-	stream !== null &&
-	typeof stream === 'object' &&
-	typeof stream.pipe === 'function';
-
-isStream.writable = stream =>
-	isStream(stream) &&
-	stream.writable !== false &&
-	typeof stream._write === 'function' &&
-	typeof stream._writableState === 'object';
-
-isStream.readable = stream =>
-	isStream(stream) &&
-	stream.readable !== false &&
-	typeof stream._read === 'function' &&
-	typeof stream._readableState === 'object';
-
-isStream.duplex = stream =>
-	isStream.writable(stream) &&
-	isStream.readable(stream);
-
-isStream.transform = stream =>
-	isStream.duplex(stream) &&
-	typeof stream._transform === 'function' &&
-	typeof stream._transformState === 'object';
-
-module.exports = isStream;
-
-
-/***/ }),
-
 /***/ 7426:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
@@ -59157,21 +58962,6 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 2121:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-const hasha = __nccwpck_require__(4933)
-const repoState = hasha.fromFileSync('common/config/rush/repo-state.json', { algorithm: 'md5' })
-
-module.exports = {
-  paths: ['common/temp'],
-  restoreKeys: ['rush-temp-'],
-  key: `rush-temp-${repoState}`
-}
-
-
-/***/ }),
-
 /***/ 2877:
 /***/ ((module) => {
 
@@ -59340,14 +59130,6 @@ module.exports = require("util");;
 
 /***/ }),
 
-/***/ 5013:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("worker_threads");;
-
-/***/ }),
-
 /***/ 8761:
 /***/ ((module) => {
 
@@ -59398,9 +59180,10 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(2186)
 const cache = __nccwpck_require__(7799)
 
-const { paths, key } = __nccwpck_require__(2121)
-
 async function run () {
+  const paths = core.getState('cachePaths')
+  const key = core.getState('cacheKey')
+
   try {
     if (core.getState('storeState')) {
       await cache.saveCache(paths, key)

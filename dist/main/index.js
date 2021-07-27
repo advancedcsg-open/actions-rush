@@ -59161,12 +59161,27 @@ exports.default = _default;
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 const hasha = __nccwpck_require__(4933)
-const repoState = hasha.fromFileSync('common/config/rush/repo-state.json', { algorithm: 'md5' })
 
-module.exports = {
-  paths: ['common/temp'],
-  restoreKeys: ['rush-temp-'],
-  key: `rush-temp-${repoState}`
+function getLockfile (packageManager) {
+  const packageManagers = {
+    npm: 'common/config/rush/npm-shrinkwrap.json',
+    pnpm: 'common/config/rush/shrinkwrap.yaml',
+    yarn: 'common/config/rush/yarn.lock'
+  }
+
+  const lockfile = packageManagers[packageManager]
+  if (!lockfile) throw new Error('Invalid package manager supplied. Valid values are `pnpm`, `npm` or `yarn`')
+  return lockfile
+}
+
+module.exports = (packageManager) => {
+  const repoState = hasha.fromFileSync(getLockfile(packageManager), { algorithm: 'md5' })
+
+  return {
+    paths: ['common/temp'],
+    restoreKeys: ['rush-temp-'],
+    key: `rush-temp-${repoState}`
+  }
 }
 
 
@@ -59398,12 +59413,14 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(2186)
 const cache = __nccwpck_require__(7799)
 const exec = __nccwpck_require__(1514)
-
-const { paths, restoreKeys, key } = __nccwpck_require__(2121)
+const getCache = __nccwpck_require__(2121)
 
 async function run () {
   try {
+    const { paths, restoreKeys, key } = getCache(core.getInput('package-manager'))
     const cacheKey = await cache.restoreCache(paths, key, restoreKeys)
+    core.saveState('cachePaths', paths)
+    core.saveState('cacheKey', key)
 
     // run rush install if no cacheKey returned or repo state has changed
     if (typeof cacheKey === 'undefined' || cacheKey !== key) {
