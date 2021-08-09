@@ -59164,7 +59164,7 @@ const hasha = __nccwpck_require__(4933)
 function getLockfile (packageManager) {
   const packageManagers = {
     npm: 'common/config/rush/npm-shrinkwrap.json',
-    pnpm: 'common/config/rush/shrinkwrap.yaml',
+    pnpm: 'common/config/rush/pnpm-lock.yaml',
     yarn: 'common/config/rush/yarn.lock'
   }
 
