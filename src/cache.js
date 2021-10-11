@@ -1,4 +1,5 @@
 const core = require('@actions/core')
+const path = require('path')
 const hasha = require('hasha')
 
 function getLockfile (packageManager) {
@@ -15,7 +16,7 @@ function getLockfile (packageManager) {
 }
 
 module.exports = (packageManager) => {
-  const repoState = hasha.fromFileSync(getLockfile(packageManager), { algorithm: 'md5' })
+  const repoState = hasha.fromFileSync(path.join(__dirname, getLockfile(packageManager)), { algorithm: 'md5' })
   core.info(`file hash is ${repoState}`)
 
   return {

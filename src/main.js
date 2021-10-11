@@ -7,6 +7,7 @@ async function run () {
   try {
     const { paths, restoreKeys, primaryKey } = getCache(core.getInput('package-manager'))
     const cacheKey = await cache.restoreCache(paths, primaryKey, restoreKeys)
+    core.info(`current cache key is ${cacheKey}`)
     core.saveState('cachePaths', paths)
     core.saveState('cacheKey', primaryKey)
 
