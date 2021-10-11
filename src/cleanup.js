@@ -11,7 +11,7 @@ async function run () {
     }
   } catch (error) {
     if (error.message.includes('Cache already exists')) {
-      core.info(`Cache entry ${key} has already been created by another worfklow`)
+      core.info(`Cache entry ${key} has already been created by another workflow`)
     } else {
       throw error
     }
