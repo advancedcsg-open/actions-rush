@@ -2,7 +2,7 @@
   "name": "@advancedcsg/actions-rush-helper",
   "version": "1.1.1",
   "description": "GitHub Action RushJS helper",
-  "main": "index.js",
+  "main": "src/main.js",
   "scripts": {
     "lint": "standard --fix",
     "build": "npm run buildMain && npm run buildCleanup",

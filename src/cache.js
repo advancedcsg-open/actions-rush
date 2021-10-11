@@ -18,6 +18,6 @@ module.exports = (packageManager) => {
   return {
     paths: ['common/temp'],
     restoreKeys: ['rush-temp-'],
-    key: `rush-temp-${repoState}`
+    primaryKey: `rush-temp-${repoState}`
   }
 }
