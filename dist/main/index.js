@@ -59282,7 +59282,6 @@ exports.default = _default;
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 const core = __nccwpck_require__(2186)
-const path = __nccwpck_require__(5622)
 const hasha = __nccwpck_require__(4933)
 
 function getLockfile (packageManager) {
@@ -59299,7 +59298,7 @@ function getLockfile (packageManager) {
 }
 
 module.exports = (packageManager) => {
-  const repoState = hasha.fromFileSync(path.join(__dirname, getLockfile(packageManager)), { algorithm: 'md5' })
+  const repoState = hasha.fromFileSync(getLockfile(packageManager), { algorithm: 'md5' })
   core.info(`file hash is ${repoState}`)
 
   return {
