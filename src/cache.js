@@ -1,3 +1,4 @@
+const core = require('@actions/core')
 const hasha = require('hasha')
 
 function getLockfile (packageManager) {
@@ -8,12 +9,14 @@ function getLockfile (packageManager) {
   }
 
   const lockfile = packageManagers[packageManager]
+  core.info(`lockfile is ${lockfile}`)
   if (!lockfile) throw new Error('Invalid package manager supplied. Valid values are `pnpm`, `npm` or `yarn`')
   return lockfile
 }
 
 module.exports = (packageManager) => {
   const repoState = hasha.fromFileSync(getLockfile(packageManager), { algorithm: 'md5' })
+  core.info(`file hash is ${repoState}`)
 
   return {
     paths: ['common/temp'],
