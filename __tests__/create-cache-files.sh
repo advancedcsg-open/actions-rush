@@ -13,9 +13,15 @@ if [ -z "$path" ]; then
   exit 1
 fi
 
-rm -rf $path
+# Sanity check GITHUB_RUN_ID defined
+if [ -z "$GITHUB_RUN_ID" ]; then
+  echo "GITHUB_RUN_ID not defined"
+  exit 1
+fi
+
+echo "$(pwd)"
 mkdir -p $path
 echo "$prefix $GITHUB_RUN_ID" > $path/test-file.txt
 
 content="$(cat $file)"
-echo "File content:\n$content"
+echo "File content: of $path\n$content"
