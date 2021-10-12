@@ -2,7 +2,7 @@
 const cache = require('@actions/cache')
 const core = require('@actions/core')
 
-const { Events, RefKey, CachePaths, RestoreKeys, KeyPrefix } = require('../src/constants')
+const { Events, RefKey, CachePaths, RestoreKeys } = require('../src/constants')
 const run = require('../src/restore')
 const actionUtils = require('../src/utils/actionUtils')
 
