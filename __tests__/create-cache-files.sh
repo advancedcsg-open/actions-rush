@@ -13,5 +13,6 @@ if [ -z "$path" ]; then
   exit 1
 fi
 
+pwd
 mkdir -p $path
 echo "$prefix $GITHUB_RUN_ID" > $path/test-file.txt
