@@ -59321,6 +59321,7 @@ const { Events, State, CachePaths } = __nccwpck_require__(4438)
 const utils = __nccwpck_require__(4034)
 
 async function run () {
+  core.info(`Caching rush temp files in ${CachePaths.join(', ')}`)
   try {
     if (utils.isGhes()) {
       utils.logWarning('This action is not supported on GHES')

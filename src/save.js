@@ -5,6 +5,7 @@ const { Events, State, CachePaths } = require('./constants')
 const utils = require('./utils/actionUtils')
 
 async function run () {
+  core.info(`Caching rush temp files in ${CachePaths.join(', ')}`)
   try {
     if (utils.isGhes()) {
       utils.logWarning('This action is not supported on GHES')
