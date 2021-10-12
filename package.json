@@ -5,9 +5,9 @@
   "main": "src/main.js",
   "scripts": {
     "lint": "standard --fix",
-    "build": "npm run buildMain && npm run buildCleanup",
-    "buildMain": "ncc build src/main.js -o dist/main --source-map --license licenses.txt",
-    "buildCleanup": "ncc build src/cleanup.js -o dist/cleanup --source-map --license licenses.txt"
+    "build": "npm run buildRestore && npm run buildSave",
+    "buildRestore": "ncc build src/restore.js -o dist/restore --source-map --license licenses.txt",
+    "buildSave": "ncc build src/save.js -o dist/save --source-map --license licenses.txt"
   },
   "repository": {
     "type": "git",
