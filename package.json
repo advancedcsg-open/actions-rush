@@ -4,7 +4,7 @@
   "description": "GitHub Action RushJS helper",
   "main": "src/main.js",
   "scripts": {
-    "lint": "standard --fix",
+    "test": "jest --coverage",
     "build": "npm run buildRestore && npm run buildSave",
     "buildRestore": "ncc build src/restore.js -o dist/restore --source-map --license licenses.txt",
     "buildSave": "ncc build src/save.js -o dist/save --source-map --license licenses.txt"
@@ -38,11 +38,14 @@
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.2.0",
     "eslint": "^7.32.0",
+    "jest": "^27.2.5",
+    "nock": "^13.1.3",
     "standard": "^16.0.4"
   },
   "standard": {
     "ignore": [
-      "/dist/"
+      "/dist/",
+      "/__test__/"
     ]
   },
   "config": {

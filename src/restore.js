@@ -13,7 +13,7 @@ async function run () {
     }
 
     if (!utils.isValidEvent()) {
-      utils.logWarning(`Event Validation Error: The event of type ${process.env[Events.Key]} is not supported because it's not tied to a branch or tag ref`)
+      utils.logWarning(`Event Validation Error: The event type ${process.env[Events.Key]} is not supported because it's not tied to a branch or tag ref.`)
       return
     }
 
@@ -23,7 +23,7 @@ async function run () {
     try {
       const cacheKey = await cache.restoreCache(CachePaths, primaryKey, RestoreKeys)
       if (!cacheKey) {
-        core.info(`Cache not found for key: ${[primaryKey, ...RestoreKeys].join(', ')}`)
+        core.info(`Cache not found for key: ${[primaryKey, ...RestoreKeys].join(', ')}.`)
         core.info('Executing `rush install`...')
         await utils.runRushInstall()
         return
@@ -40,7 +40,6 @@ async function run () {
         throw error
       } else {
         utils.logWarning(error.message)
-        utils.setCacheHitOutput(false)
       }
     }
   } catch (error) {
@@ -49,3 +48,5 @@ async function run () {
 }
 
 run()
+
+module.exports = run

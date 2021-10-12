@@ -13,6 +13,7 @@ async function run () {
 
     if (!utils.isValidEvent()) {
       utils.logWarning(`Event Validation Error: The event type ${process.env[Events.Key]} is not supported because it's not tied to a branch or tag ref.`)
+      return
     }
 
     const state = utils.getCacheState()
@@ -20,10 +21,12 @@ async function run () {
     const primaryKey = core.getState(State.CachePrimaryKey)
     if (!primaryKey) {
       utils.logWarning('Error retrieving key from state.')
+      return
     }
 
     if (utils.isExactKeyMatch(primaryKey, state)) {
-      core.info(`Cache hit occurred on the primary key ${primaryKey}, not saving cache`)
+      core.info(`Cache hit occurred on the primary key ${primaryKey}, not saving cache.`)
+      return
     }
 
     try {
@@ -44,3 +47,5 @@ async function run () {
 }
 
 run()
+
+module.exports = run
