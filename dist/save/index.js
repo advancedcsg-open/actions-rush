@@ -59439,7 +59439,7 @@ function generateCacheKey (packageManager) {
   const lockfile = getLockFile(packageManager)
   const lockfileHash = hasha.fromFileSync(lockfile, { algorithm: 'md5' })
   const rushJsonHash = hasha.fromFileSync('rush.json', { algorithm: 'md5' })
-  const cacheHash = hasha({ lockfileHash, rushJsonHash }, { algorithm: 'md5' })
+  const cacheHash = hasha(JSON.stringify({ lockfileHash, rushJsonHash }), { algorithm: 'md5' })
   return `${KeyPrefix}${process.platform}-${cacheHash}`
 }
 
