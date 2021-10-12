@@ -182,10 +182,7 @@ test('save with reserve cache failure outputs warning', async () => {
     .spyOn(cache, 'saveCache')
     .mockImplementationOnce(() => {
       const actualCache = jest.requireActual('@actions/cache')
-      const error = new actualCache.ReserveCacheError(
-                `Unable to reserve cache with key ${primaryKey}, another job may be creating this cache.`
-      )
-      throw error
+      throw new actualCache.ReserveCacheError(`Unable to reserve cache with key ${primaryKey}, another job may be creating this cache.`)
     })
 
   await run()
