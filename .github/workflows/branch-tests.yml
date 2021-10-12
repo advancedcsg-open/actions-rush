@@ -2,7 +2,7 @@ name: Branch Tests
 
 on:
   push:
-    branches_ignore:
+    branches-ignore:
       - main
       - releases/**
     paths-ignore:

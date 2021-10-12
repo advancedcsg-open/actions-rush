@@ -61,7 +61,7 @@ function generateCacheKey (packageManager) {
 
   const lockfile = getLockFile(packageManager)
   const lockfileHash = hasha.fromFileSync(lockfile, { algorithm: 'md5' })
-  return `${KeyPrefix}${lockfileHash}`
+  return `${KeyPrefix}${process.platform}-${lockfileHash}`
 }
 
 module.exports = {
