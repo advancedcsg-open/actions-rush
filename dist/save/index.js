@@ -59432,7 +59432,6 @@ function generateCacheKey (packageManager) {
     }
 
     const lockfile = packageManagers[packageManager]
-    core.info(`lockfile is ${lockfile}`)
     if (!lockfile) throw new Error('Invalid package manager supplied. Valid values are `pnpm`, `npm` or `yarn`')
     return lockfile
   }

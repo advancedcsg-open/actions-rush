@@ -124,8 +124,8 @@ test('save with large cache outputs warning', async () => {
   const logWarningMock = jest.spyOn(actionUtils, 'logWarning')
   const failedMock = jest.spyOn(core, 'setFailed')
 
-  const primaryKey = 'rushjs-helper-bb828da54c148048dd17899ba9fda624811cfb43'
-  const savedCacheKey = 'rushjs-helper-'
+  const primaryKey = 'rushjs-helper-linux-bb828da54c148048dd17899ba9fda624811cfb43'
+  const savedCacheKey = 'rushjs-helper-linux-'
 
   jest.spyOn(core, 'getState')
   // Cache Entry State
@@ -165,8 +165,8 @@ test('save with reserve cache failure outputs warning', async () => {
   const logWarningMock = jest.spyOn(actionUtils, 'logWarning')
   const failedMock = jest.spyOn(core, 'setFailed')
 
-  const primaryKey = 'rushjs-helper-bb828da54c148048dd17899ba9fda624811cfb43'
-  const savedCacheKey = 'rushjs-helper-'
+  const primaryKey = 'rushjs-helper-linux-bb828da54c148048dd17899ba9fda624811cfb43'
+  const savedCacheKey = 'rushjs-helper-linux-'
 
   jest.spyOn(core, 'getState')
   // Cache Entry State

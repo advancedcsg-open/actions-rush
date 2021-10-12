@@ -51,11 +51,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: RushJS Helper
+        uses: ./
       - name: Generate files in common/temp
         shell: bash
         run: __tests__/create-cache-files.sh ${{ runner.os }} common/temp
-      - name: RushJS Helper
-        uses: ./
 
   test-restore:
     needs: test-save
