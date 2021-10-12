@@ -6,7 +6,7 @@ const utils = require('./utils/actionUtils')
 
 async function run () {
   try {
-    if (utils.getGhes()) {
+    if (utils.isGhes()) {
       utils.logWarning('RushJS Helper action is not supported on GHES')
       utils.setCacheHitOutput(false)
       return

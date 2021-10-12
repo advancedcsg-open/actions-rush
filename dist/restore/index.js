@@ -59627,7 +59627,7 @@ const utils = __nccwpck_require__(4034)
 
 async function run () {
   try {
-    if (utils.getGhes()) {
+    if (utils.isGhes()) {
       utils.logWarning('RushJS Helper action is not supported on GHES')
       utils.setCacheHitOutput(false)
       return
