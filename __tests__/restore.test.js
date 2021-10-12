@@ -140,7 +140,7 @@ test('restore with restore keys and no cache found', async () => {
   expect(failedMock).toHaveBeenCalledTimes(0)
 
   expect(infoMock).toHaveBeenCalledWith(
-        `Cache not found for key: ${[key, RestoreKeys].join(', ')}.`
+        `Cache not found for key: ${[key, ...RestoreKeys].join(', ')}.`
   )
 })
 
@@ -192,7 +192,7 @@ test('restore with cache found for restore key', async () => {
   expect(stateMock).toHaveBeenCalledWith('RUSHJS_HELPER_KEY', key)
 
   expect(infoMock).toHaveBeenCalledWith(
-        `Cache restored from key: ${KeyPrefix}`
+        `Cache restored from key: ${RestoreKeys.join(',')}`
   )
   expect(failedMock).toHaveBeenCalledTimes(0)
 })

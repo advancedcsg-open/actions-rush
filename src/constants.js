@@ -14,7 +14,10 @@ const RefKey = 'GITHUB_REF'
 const CachePaths = ['common/temp']
 
 const KeyPrefix = 'rushjs-helper-'
-const RestoreKeys = [KeyPrefix]
+const RestoreKeys = [
+  `${KeyPrefix}${process.platform}-`,
+  KeyPrefix
+]
 
 module.exports = {
   State,
