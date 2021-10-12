@@ -4,3 +4,6 @@
 npm test
 echo "test: '$(date)'" > common/config/rush/pnpm-lock.yaml
 git add common/config/rush/pnpm-lock.yaml
+
+echo "{ \"test\": \"$(date)\"" > rush.json
+git add rush.json

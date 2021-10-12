@@ -59432,14 +59432,15 @@ function generateCacheKey (packageManager) {
     }
 
     const lockfile = packageManagers[packageManager]
-    core.info(`lockfile is ${lockfile}`)
     if (!lockfile) throw new Error('Invalid package manager supplied. Valid values are `pnpm`, `npm` or `yarn`')
     return lockfile
   }
 
   const lockfile = getLockFile(packageManager)
   const lockfileHash = hasha.fromFileSync(lockfile, { algorithm: 'md5' })
-  return `${KeyPrefix}${process.platform}-${lockfileHash}`
+  const rushJsonHash = hasha.fromFileSync('rush.json', { algorithm: 'md5' })
+  const cacheHash = hasha({ lockfileHash, rushJsonHash }, { algorithm: 'md5' })
+  return `${KeyPrefix}${process.platform}-${cacheHash}`
 }
 
 module.exports = {
