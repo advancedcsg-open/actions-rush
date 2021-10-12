@@ -31,8 +31,8 @@ async function run () {
 
       utils.setCacheState(cacheKey)
 
-      const isExactKeyMatch = utils.isExactKeyMatch(primaryKey, cacheKey)
-      if (!isExactKeyMatch) await utils.runRushInstall()
+      // always run rush install
+      await utils.runRushInstall()
 
       core.info(`Cache restored from key: ${cacheKey}`)
     } catch (error) {
