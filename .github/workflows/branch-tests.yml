@@ -1,0 +1,56 @@
+name: Branch Tests
+
+on:
+  push:
+    branches_ignore:
+      - main
+      - releases/**
+    paths-ignore:
+      - '**.md'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Determine npm cache directory
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - name: Restore npm cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.npm-cache.outputs.dir}}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - run: npm ci
+      - name: Build & Test
+        run: npm run test
+
+  test-save:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Generate files in common/temp
+        shell: bash
+        run: __tests__/create-cache-files.sh ${{ runner.os }} common/temp
+      - name: RushJS Helper
+        uses: ./
+
+  test-restore:
+    needs: test-save
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: RushJS Helper
+        uses: ./
+      - name: Verify cache files in common/temp
+        shell: bash
+        run: __tests__/verify-cache-files.sh ${{ runner.os }} common/temp
