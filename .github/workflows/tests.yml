@@ -41,6 +41,10 @@ jobs:
       - run: npm ci
       - name: Build & Test
         run: npm run test
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   test-save:
     strategy:
