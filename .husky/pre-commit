@@ -2,6 +2,8 @@
 . "$(dirname "$0")/_/husky.sh"
 
 npm test
+git add coverage/.
+
 echo "test: '$(date)'" > common/config/rush/pnpm-lock.yaml
 git add common/config/rush/pnpm-lock.yaml
 
