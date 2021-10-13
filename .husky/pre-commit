@@ -2,8 +2,11 @@
 . "$(dirname "$0")/_/husky.sh"
 
 npm test
+
+# Update test lock file to facilitate testing workflows
 echo "test: '$(date)'" > common/config/rush/pnpm-lock.yaml
 git add common/config/rush/pnpm-lock.yaml
 
+# Update test rush.json to facilitate testing workflows
 echo "{ \"test\": \"$(date)\" }" > rush.json
 git add rush.json
