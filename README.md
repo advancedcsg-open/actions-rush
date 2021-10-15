@@ -2,6 +2,7 @@
 <p align="center">
   <a href="https://standardjs.com"><img alt="JavaScript Style Guide" src="https://img.shields.io/badge/code_style-standard-brightgreen.svg"></a>
   <a href="http://commitizen.github.io/cz-cli/"><img alt="Commitizen friendly" src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg"></a>
+<a href="https://app.fossa.com/projects/git%2Bgithub.com%2Fadvancedcsg-open%2Factions-rush?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Fadvancedcsg-open%2Factions-rush.svg?type=shield"/></a>
   <a href="https://github.com/actions/javascript-action/actions"><img alt="javscript-action status" src="https://github.com/actions/javascript-action/workflows/units-test/badge.svg"></a>
   <a href="https://sonarcloud.io/dashboard?id=advancedcsg-open_actions-rush"><img alt="Quality Gate Status" src="https://sonarcloud.io/api/project_badges/measure?project=advancedcsg-open_actions-rush&metric=alert_status"></a>
 </p>
@@ -49,3 +50,5 @@ jobs:
 ### License
 
 actions-rush is licensed under the MIT License. See the LICENSE file for more info.
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fadvancedcsg-open%2Factions-rush.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fadvancedcsg-open%2Factions-rush?ref=badge_large)
