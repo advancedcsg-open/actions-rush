@@ -1,7 +1,7 @@
 /* eslint-env jest */
 const core = require('@actions/core')
 
-const { Events, RefKey, State } = require('../src/constants')
+const { Events, RefKey, State, KeyPrefix } = require('../src/constants')
 const actionUtils = require('../src/utils/actionUtils')
 
 jest.mock('@actions/core')
@@ -118,4 +118,32 @@ test('isValidEvent returns true for event that has a ref', () => {
   const isValidEvent = actionUtils.isValidEvent()
 
   expect(isValidEvent).toBe(true)
+})
+
+test('rush runners complete successfully', () => {
+  const runRushInstallMock = jest.spyOn(actionUtils, 'runRushInstall')
+  const runRushBuildMock = jest.spyOn(actionUtils, 'runRushBuild')
+
+  actionUtils.runRushInstall()
+  actionUtils.runRushBuild()
+
+  expect(runRushInstallMock).toHaveBeenCalledTimes(1)
+  expect(runRushBuildMock).toHaveBeenCalledTimes(1)
+})
+
+test('get lock file for all valid types', () => {
+  const cacheKey = new RegExp(`${KeyPrefix}${process.platform}-`)
+  const generateCacheKeyNpm = actionUtils.generateCacheKey('npm')
+  const generateCacheKeyYarn = actionUtils.generateCacheKey('yarn')
+  const generateCacheKeyPnpm = actionUtils.generateCacheKey('pnpm')
+
+  expect(generateCacheKeyNpm).toMatch(cacheKey)
+  expect(generateCacheKeyYarn).toMatch(cacheKey)
+  expect(generateCacheKeyPnpm).toMatch(cacheKey)
+})
+
+test('throw error in invalid lockfile type', () => {
+  expect(() => {
+    actionUtils.generateCacheKey('foo')
+  }).toThrow('Invalid package manager supplied. Valid values are `pnpm`, `npm` or `yarn`')
 })
