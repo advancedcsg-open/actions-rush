@@ -5,6 +5,7 @@ on:
     branches-ignore:
       - main
       - releases/**
+      - dependabot/**
     paths-ignore:
       - '**.md'
 jobs:
