@@ -45,6 +45,10 @@ async function runRushInstall () {
   return exec.exec('node', ['common/scripts/install-run-rush.js', 'install'])
 }
 
+async function runRushBuild () {
+  return exec.exec('node', ['common/scripts/install-run-rush.js', 'build'])
+}
+
 function getLockFile (packageManager) {
   const packageManagers = {
     npm: 'common/config/rush/npm-shrinkwrap.json',
@@ -71,5 +75,6 @@ module.exports = {
   logWarning,
   isValidEvent,
   runRushInstall,
+  runRushBuild,
   generateCacheKey
 }

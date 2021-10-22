@@ -28,6 +28,7 @@ beforeAll(() => {
 
   jest.spyOn(core, 'getInput').mockImplementation((name, options) => {
     if (name === 'package-manager') return 'pnpm'
+    else if (name === 'build') return 'true'
     else return undefined
   })
 })
