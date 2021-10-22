@@ -59423,19 +59423,19 @@ async function runRushInstall () {
   return exec.exec('node', ['common/scripts/install-run-rush.js', 'install'])
 }
 
-function generateCacheKey (packageManager) {
-  function getLockFile (packageManager) {
-    const packageManagers = {
-      npm: 'common/config/rush/npm-shrinkwrap.json',
-      pnpm: 'common/config/rush/pnpm-lock.yaml',
-      yarn: 'common/config/rush/yarn.lock'
-    }
-
-    const lockfile = packageManagers[packageManager]
-    if (!lockfile) throw new Error('Invalid package manager supplied. Valid values are `pnpm`, `npm` or `yarn`')
-    return lockfile
+function getLockFile (packageManager) {
+  const packageManagers = {
+    npm: 'common/config/rush/npm-shrinkwrap.json',
+    pnpm: 'common/config/rush/pnpm-lock.yaml',
+    yarn: 'common/config/rush/yarn.lock'
   }
 
+  const lockfile = packageManagers[packageManager]
+  if (!lockfile) throw new Error('Invalid package manager supplied. Valid values are `pnpm`, `npm` or `yarn`')
+  return lockfile
+}
+
+function generateCacheKey (packageManager) {
   const lockfile = getLockFile(packageManager)
   const lockfileHash = hasha.fromFileSync(lockfile, { algorithm: 'md5' })
   return `${KeyPrefix}${process.platform}-${lockfileHash}`
