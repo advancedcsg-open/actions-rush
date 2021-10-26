@@ -25,8 +25,12 @@ Specifies the package manager used by your rush repository. Valid values are:
 - `npm`
 - `yarn`
 
+#### `build`
+If set to `true` will run `rush build` if `rush install` completes successfully. The deafult value is `false`
+
 ### Example
 ---
+Below example will work with `pnpm` as the default package manager and will additionally run `rush build`.
 ```yaml
 # .github/workflows/rush.yml
 name: Rush Install
@@ -45,6 +49,8 @@ jobs:
 
       - name: Rush Install
         uses: advancedcsg-open/actions-rush
+        with:
+          build: true
 ```
 
 ### License
