@@ -33,7 +33,7 @@
     "hasha": "^5.2.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^13.2.1",
+    "@commitlint/cli": "^14.1.0",
     "@commitlint/config-conventional": "^13.2.0",
     "@vercel/ncc": "^0.31.1",
     "commitizen": "^4.2.4",
