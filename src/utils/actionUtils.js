@@ -44,16 +44,16 @@ function isValidEvent () {
 
 async function runRushInstall (workingDirectory) {
   return exec.exec('node', [
-    path.join(workingDirectory, 'common/scripts/install-run-rush.js'),
+    'common/scripts/install-run-rush.js',
     'install'
-  ])
+  ], { cwd: workingDirectory })
 }
 
 async function runRushBuild (workingDirectory) {
   return exec.exec('node', [
-    path.join(workingDirectory, 'common/scripts/install-run-rush.js'),
+    'common/scripts/install-run-rush.js',
     'build'
-  ])
+  ], { cwd: workingDirectory })
 }
 
 function getLockFile (packageManager, workingDirectory) {
