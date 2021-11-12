@@ -1,5 +1,6 @@
 const cache = require('@actions/cache')
 const core = require('@actions/core')
+const path = require('path')
 
 const { Events, State, CachePaths, RestoreKeys } = require('./constants')
 const utils = require('./utils/actionUtils')
@@ -17,13 +18,15 @@ async function run () {
       return
     }
 
-    const primaryKey = utils.generateCacheKey(core.getInput('package-manager'))
+    const build = core.getInput('build')
+    const workingDirectory = core.getInput('working-directory')
+    const cachePaths = CachePaths.map(p => path.join(workingDirectory, p))
+
+    const primaryKey = utils.generateCacheKey(core.getInput('package-manager'), workingDirectory)
     core.saveState(State.CachePrimaryKey, primaryKey)
 
-    const build = core.getInput('build')
-
     try {
-      const cacheKey = await cache.restoreCache(CachePaths, primaryKey, RestoreKeys)
+      const cacheKey = await cache.restoreCache(cachePaths, primaryKey, RestoreKeys)
       if (!cacheKey) {
         core.info(`Cache not found for key: ${[primaryKey, ...RestoreKeys].join(', ')}.`)
         core.info('Executing `rush install`...')
@@ -34,13 +37,13 @@ async function run () {
       utils.setCacheState(cacheKey)
 
       // always run rush install
-      await utils.runRushInstall()
+      await utils.runRushInstall(workingDirectory)
       core.info(`Cache restored from key: ${cacheKey}`)
 
       // run rush build if specified
       if (build) {
-        core.info(`Executing 'rush build'...`)
-        await utils.runRushBuild(build)
+        core.info('Executing `rush build`...')
+        await utils.runRushBuild(workingDirectory)
       }
     } catch (error) {
       if (error.name === cache.ValidationError.name) {

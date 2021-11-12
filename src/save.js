@@ -1,5 +1,6 @@
 const core = require('@actions/core')
 const cache = require('@actions/cache')
+const path = require('path')
 
 const { Events, State, CachePaths } = require('./constants')
 const utils = require('./utils/actionUtils')
@@ -18,6 +19,8 @@ async function run () {
     }
 
     const state = utils.getCacheState()
+    const workingDirectory = core.getInput('working-directory')
+    const cachePaths = CachePaths.map(p => path.join(workingDirectory, p))
 
     const primaryKey = core.getState(State.CachePrimaryKey)
     if (!primaryKey) {
@@ -31,7 +34,7 @@ async function run () {
     }
 
     try {
-      await cache.saveCache(CachePaths, primaryKey)
+      await cache.saveCache(cachePaths, primaryKey)
       core.info(`Cache saved with key: ${primaryKey}`)
     } catch (error) {
       if (error.name === cache.ValidationError.name) {

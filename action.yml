@@ -19,3 +19,7 @@ inputs:
     description: 'Run rush build'
     required: false
     default: false
+  working-directory:
+    description: 'Specify the root directory for the rush configuration'
+    required: false
+    default: '.'
