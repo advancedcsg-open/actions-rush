@@ -44,9 +44,11 @@ jobs:
         uses: actions/checkout@v2
       - name: RushJS Helper
         uses: ./
+        with:
+          working-directory: __tests__/data
       - name: Generate files in common/temp
         shell: bash
-        run: __tests__/create-cache-files.sh ${{ runner.os }} common/temp
+        run: __tests__/create-cache-files.sh ${{ runner.os }} __tests__/data/common/temp
 
   test-restore:
     needs: test-save
@@ -56,6 +58,8 @@ jobs:
         uses: actions/checkout@v2
       - name: RushJS Helper
         uses: ./
+        with:
+          working-directory: __tests__/data
       - name: Verify cache files in common/temp
         shell: bash
-        run: __tests__/verify-cache-files.sh ${{ runner.os }} common/temp
+        run: __tests__/verify-cache-files.sh ${{ runner.os }} __tests__/data/common/temp

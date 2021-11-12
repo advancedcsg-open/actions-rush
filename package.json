@@ -38,11 +38,11 @@
     "@vercel/ncc": "^0.31.1",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.1.0",
+    "eslint": "^8.2.0",
+    "husky": "^7.0.4",
     "jest": "^27.3.1",
-    "nock": "^13.1.4",
-    "standard": "^16.0.4",
-    "husky": "^7.0.4"
+    "nock": "^13.2.1",
+    "standard": "^16.0.4"
   },
   "standard": {
     "ignore": [

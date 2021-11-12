@@ -26,7 +26,12 @@ Specifies the package manager used by your rush repository. Valid values are:
 - `yarn`
 
 #### `build`
-If set to `true` will run `rush build` if `rush install` completes successfully. The deafult value is `false`
+If set to `true` will run `rush build` if `rush install` completes successfully. The defult value is `false`
+
+#### `working-directory
+Optional parameter to specify the root directory relative to the root of the repository where rush is installed. The default value is `.`
+
+*NOTE:* No prefixing with `./` is required.
 
 ### Example
 ---

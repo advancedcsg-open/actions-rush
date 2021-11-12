@@ -1,10 +1,12 @@
 /* eslint-env jest */
 const cache = require('@actions/cache')
 const core = require('@actions/core')
+const path = require('path')
 
 const { Events, RefKey, CachePaths, RestoreKeys } = require('../src/constants')
 const run = require('../src/restore')
 const actionUtils = require('../src/utils/actionUtils')
+const cachePaths = CachePaths.map(p => path.join('__tests__/data', p))
 
 jest.mock('@actions/core')
 jest.mock('../src/utils/actionUtils')
@@ -29,6 +31,7 @@ beforeAll(() => {
   jest.spyOn(core, 'getInput').mockImplementation((name, options) => {
     if (name === 'package-manager') return 'pnpm'
     else if (name === 'build') return 'true'
+    else if (name === 'working-directory') return '__tests__/data'
     else return undefined
   })
 })
@@ -74,7 +77,7 @@ test('restore on GHES should no-op', async () => {
 })
 
 test('restore with no cache found', async () => {
-  const key = actionUtils.generateCacheKey('pnpm')
+  const key = actionUtils.generateCacheKey('pnpm', '__tests__/data')
   const infoMock = jest.spyOn(core, 'info')
   const failedMock = jest.spyOn(core, 'setFailed')
   const stateMock = jest.spyOn(core, 'saveState')
@@ -87,7 +90,7 @@ test('restore with no cache found', async () => {
   await run()
 
   expect(restoreCacheMock).toHaveBeenCalledTimes(1)
-  expect(restoreCacheMock).toHaveBeenCalledWith(CachePaths, key, RestoreKeys)
+  expect(restoreCacheMock).toHaveBeenCalledWith(cachePaths, key, RestoreKeys)
 
   expect(stateMock).toHaveBeenCalledWith('RUSHJS_HELPER_KEY', key)
   expect(failedMock).toHaveBeenCalledTimes(0)
@@ -110,7 +113,7 @@ test('restore with server error should fail', async () => {
   await run()
 
   expect(restoreCacheMock).toHaveBeenCalledTimes(1)
-  expect(restoreCacheMock).toHaveBeenCalledWith(CachePaths, key, RestoreKeys)
+  expect(restoreCacheMock).toHaveBeenCalledWith(cachePaths, key, RestoreKeys)
 
   expect(stateMock).toHaveBeenCalledWith('RUSHJS_HELPER_KEY', key)
 
@@ -135,7 +138,7 @@ test('restore with restore keys and no cache found', async () => {
   await run()
 
   expect(restoreCacheMock).toHaveBeenCalledTimes(1)
-  expect(restoreCacheMock).toHaveBeenCalledWith(CachePaths, key, RestoreKeys)
+  expect(restoreCacheMock).toHaveBeenCalledWith(cachePaths, key, RestoreKeys)
 
   expect(stateMock).toHaveBeenCalledWith('RUSHJS_HELPER_KEY', key)
   expect(failedMock).toHaveBeenCalledTimes(0)
@@ -160,7 +163,7 @@ test('restore with cache found for key', async () => {
   await run()
 
   expect(restoreCacheMock).toHaveBeenCalledTimes(1)
-  expect(restoreCacheMock).toHaveBeenCalledWith(CachePaths, key, RestoreKeys)
+  expect(restoreCacheMock).toHaveBeenCalledWith(cachePaths, key, RestoreKeys)
 
   expect(stateMock).toHaveBeenCalledWith('RUSHJS_HELPER_KEY', key)
 
@@ -188,7 +191,7 @@ test('restore with cache found for restore key', async () => {
   await run()
 
   expect(restoreCacheMock).toHaveBeenCalledTimes(1)
-  expect(restoreCacheMock).toHaveBeenCalledWith(CachePaths, key, RestoreKeys)
+  expect(restoreCacheMock).toHaveBeenCalledWith(cachePaths, key, RestoreKeys)
 
   expect(stateMock).toHaveBeenCalledWith('RUSHJS_HELPER_KEY', key)
 

@@ -124,18 +124,19 @@ test('rush runners complete successfully', () => {
   const runRushInstallMock = jest.spyOn(actionUtils, 'runRushInstall')
   const runRushBuildMock = jest.spyOn(actionUtils, 'runRushBuild')
 
-  actionUtils.runRushInstall()
-  actionUtils.runRushBuild()
+  actionUtils.runRushInstall('__tests__/data')
+  actionUtils.runRushBuild('__tests__/data')
 
   expect(runRushInstallMock).toHaveBeenCalledTimes(1)
   expect(runRushBuildMock).toHaveBeenCalledTimes(1)
 })
 
 test('get lock file for all valid types', () => {
+  const workingDirectory = '__tests__/data'
   const cacheKey = new RegExp(`${KeyPrefix}${process.platform}-`)
-  const generateCacheKeyNpm = actionUtils.generateCacheKey('npm')
-  const generateCacheKeyYarn = actionUtils.generateCacheKey('yarn')
-  const generateCacheKeyPnpm = actionUtils.generateCacheKey('pnpm')
+  const generateCacheKeyNpm = actionUtils.generateCacheKey('npm', workingDirectory)
+  const generateCacheKeyYarn = actionUtils.generateCacheKey('yarn', workingDirectory)
+  const generateCacheKeyPnpm = actionUtils.generateCacheKey('pnpm', workingDirectory)
 
   expect(generateCacheKeyNpm).toMatch(cacheKey)
   expect(generateCacheKeyYarn).toMatch(cacheKey)
@@ -144,6 +145,6 @@ test('get lock file for all valid types', () => {
 
 test('throw error in invalid lockfile type', () => {
   expect(() => {
-    actionUtils.generateCacheKey('foo')
+    actionUtils.generateCacheKey('foo', '__tests__/data')
   }).toThrow('Invalid package manager supplied. Valid values are `pnpm`, `npm` or `yarn`')
 })
