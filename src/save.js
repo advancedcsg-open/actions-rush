@@ -19,7 +19,7 @@ async function run () {
     }
 
     const state = utils.getCacheState()
-    const workingDirectory = core.getInput('working-directory')
+    const workingDirectory = core.getInput('working-directory', { required: false, default: '.' })
     const cachePaths = CachePaths.map(p => path.join(workingDirectory, p))
 
     const primaryKey = core.getState(State.CachePrimaryKey)

@@ -5,7 +5,7 @@ specifiers:
   '@actions/core': ^1.6.0
   '@actions/exec': ^1.1.0
   '@commitlint/cli': ^14.1.0
-  '@commitlint/config-conventional': ^13.2.0
+  '@commitlint/config-conventional': ^14.1.0
   '@vercel/ncc': ^0.31.1
   commitizen: ^4.2.4
   cz-conventional-changelog: ^3.3.0
@@ -24,7 +24,7 @@ dependencies:
 
 devDependencies:
   '@commitlint/cli': 14.1.0
-  '@commitlint/config-conventional': 13.2.0
+  '@commitlint/config-conventional': 14.1.0
   '@vercel/ncc': 0.31.1
   commitizen: 4.2.4
   cz-conventional-changelog: 3.3.0
@@ -537,8 +537,8 @@ packages:
       yargs: 17.2.1
     dev: true
 
-  /@commitlint/config-conventional/13.2.0:
-    resolution: {integrity: sha512-7u7DdOiF+3qSdDlbQGfpvCH8DCQdLFvnI2+VucYmmV7E92iD6t9PBj+UjIoSQCaMAzYp27Vkall78AkcXBh6Xw==}
+  /@commitlint/config-conventional/14.1.0:
+    resolution: {integrity: sha512-JuhCqkEv8jyqmd54EpXPsQFpYc/8k7sfP1UziRdEvZSJUCLxz+8Pk4cNS0oF1BtjaWO7ITgXPlIZg47PyApGmg==}
     engines: {node: '>=v12'}
     dependencies:
       conventional-changelog-conventionalcommits: 4.6.1
