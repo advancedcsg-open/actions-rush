@@ -1,7 +1,7 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm test
+pnpm test
 
 # Update test lock file to facilitate testing workflows
 echo "test: '$(date)'" > __tests__/data/common/config/rush/pnpm-lock.yaml
@@ -10,3 +10,7 @@ git add __tests__/data/common/config/rush/pnpm-lock.yaml
 # Update test rush.json to facilitate testing workflows
 echo "{ \"test\": \"$(date)\" }" > __tests__/data/rush.json
 git add __tests__/data/rush.json
+
+# create new distribution files
+pnpm build
+git add dist
