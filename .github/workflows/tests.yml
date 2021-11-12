@@ -33,12 +33,16 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ steps.npm-cache.outputs.dir}}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - run: npm ci
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.20.1
+          run_install: true
       - name: Build & Test
-        run: npm run test
+        run: pnpm test
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
