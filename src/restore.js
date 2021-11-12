@@ -18,8 +18,8 @@ async function run () {
       return
     }
 
-    const build = core.getInput('build')
-    const workingDirectory = core.getInput('working-directory')
+    const build = core.getInput('build', { required: false, default: false })
+    const workingDirectory = core.getInput('working-directory', { required: false, default: '.' })
     const cachePaths = CachePaths.map(p => path.join(workingDirectory, p))
 
     const primaryKey = utils.generateCacheKey(core.getInput('package-manager'), workingDirectory)
