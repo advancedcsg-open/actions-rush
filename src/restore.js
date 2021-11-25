@@ -5,7 +5,7 @@ const path = require('path')
 const { Events, State, CachePaths, RestoreKeys } = require('./constants')
 const utils = require('./utils/actionUtils')
 
-async function run () {
+async function run() {
   try {
     if (utils.isGhes()) {
       utils.logWarning('RushJS Helper action is not supported on GHES')
@@ -41,7 +41,7 @@ async function run () {
       core.info(`Cache restored from key: ${cacheKey}`)
 
       // run rush build if specified
-      if (build) {
+      if (build == "true") {
         core.info('Executing `rush build`...')
         await utils.runRushBuild(workingDirectory)
       }
