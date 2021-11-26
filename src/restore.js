@@ -24,9 +24,9 @@ async function run() {
 
     const primaryKey = utils.generateCacheKey(core.getInput('package-manager'), workingDirectory)
     core.saveState(State.CachePrimaryKey, primaryKey)
-
+    let cacheKey
     try {
-      const cacheKey = await cache.restoreCache(cachePaths, primaryKey, RestoreKeys)
+      cacheKey = await cache.restoreCache(cachePaths, primaryKey, RestoreKeys)
       if (!cacheKey) {
         core.info(`Cache not found for key: ${[primaryKey, ...RestoreKeys].join(', ')}.`)
         core.info('Executing `rush install`...')
@@ -49,6 +49,7 @@ async function run() {
       await utils.runRushBuild(workingDirectory)
     }
   } catch (error) {
+    console.log(error)
     core.setFailed(error.message)
   }
 }

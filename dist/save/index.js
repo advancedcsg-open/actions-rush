@@ -56904,7 +56904,9 @@ module.exports.implForWrapper = function (wrapper) {
 /***/ }),
 
 /***/ 2697:
-/***/ ((module) => {
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const path = __nccwpck_require__(5622)
 
 const State = {
   CachePrimaryKey: 'RUSHJS_HELPER_KEY',
@@ -56919,7 +56921,7 @@ const Events = {
 
 const RefKey = 'GITHUB_REF'
 
-const CachePaths = ['common/temp']
+const CachePaths = [path.join('common', 'temp')]
 
 const KeyPrefix = 'rushjs-helper-'
 const RestoreKeys = [

@@ -56904,7 +56904,9 @@ module.exports.implForWrapper = function (wrapper) {
 /***/ }),
 
 /***/ 2697:
-/***/ ((module) => {
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const path = __nccwpck_require__(5622)
 
 const State = {
   CachePrimaryKey: 'RUSHJS_HELPER_KEY',
@@ -56919,7 +56921,7 @@ const Events = {
 
 const RefKey = 'GITHUB_REF'
 
-const CachePaths = ['common/temp']
+const CachePaths = [path.join('common', 'temp')]
 
 const KeyPrefix = 'rushjs-helper-'
 const RestoreKeys = [
@@ -56968,9 +56970,9 @@ async function run() {
 
     const primaryKey = utils.generateCacheKey(core.getInput('package-manager'), workingDirectory)
     core.saveState(State.CachePrimaryKey, primaryKey)
-
+    let cacheKey
     try {
-      const cacheKey = await cache.restoreCache(cachePaths, primaryKey, RestoreKeys)
+      cacheKey = await cache.restoreCache(cachePaths, primaryKey, RestoreKeys)
       if (!cacheKey) {
         core.info(`Cache not found for key: ${[primaryKey, ...RestoreKeys].join(', ')}.`)
         core.info('Executing `rush install`...')
@@ -56993,6 +56995,7 @@ async function run() {
       await utils.runRushBuild(workingDirectory)
     }
   } catch (error) {
+    console.log(error)
     core.setFailed(error.message)
   }
 }
