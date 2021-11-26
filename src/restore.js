@@ -44,7 +44,7 @@ async function run() {
     core.info(`Cache restored from key: ${cacheKey}`)
 
     // run rush build if specified
-    if (build) {
+    if (build == "true") {
       core.info('Executing `rush build`...')
       await utils.runRushBuild(workingDirectory)
     }

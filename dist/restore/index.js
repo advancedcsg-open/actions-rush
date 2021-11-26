@@ -56949,7 +56949,7 @@ const path = __nccwpck_require__(5622)
 const { Events, State, CachePaths, RestoreKeys } = __nccwpck_require__(2697)
 const utils = __nccwpck_require__(2782)
 
-async function run () {
+async function run() {
   try {
     if (utils.isGhes()) {
       utils.logWarning('RushJS Helper action is not supported on GHES')
@@ -56974,27 +56974,23 @@ async function run () {
       if (!cacheKey) {
         core.info(`Cache not found for key: ${[primaryKey, ...RestoreKeys].join(', ')}.`)
         core.info('Executing `rush install`...')
-        await utils.runRushInstall()
-        return
       }
-
       utils.setCacheState(cacheKey)
-
-      // always run rush install
-      await utils.runRushInstall(workingDirectory)
-      core.info(`Cache restored from key: ${cacheKey}`)
-
-      // run rush build if specified
-      if (build) {
-        core.info('Executing `rush build`...')
-        await utils.runRushBuild(workingDirectory)
-      }
     } catch (error) {
       if (error.name === cache.ValidationError.name) {
         throw error
       } else {
         utils.logWarning(error.message)
       }
+    }
+    // always run rush install
+    await utils.runRushInstall(workingDirectory)
+    core.info(`Cache restored from key: ${cacheKey}`)
+
+    // run rush build if specified
+    if (build == "true") {
+      core.info('Executing `rush build`...')
+      await utils.runRushBuild(workingDirectory)
     }
   } catch (error) {
     core.setFailed(error.message)
