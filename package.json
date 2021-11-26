@@ -1,6 +1,6 @@
 {
   "name": "@advancedcsg/actions-rush-helper",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "GitHub Action RushJS helper",
   "main": "src/main.js",
   "scripts": {
