@@ -56977,7 +56977,9 @@ async function run() {
         core.info(`Cache not found for key: ${[primaryKey, ...RestoreKeys].join(', ')}.`)
         core.info('Executing `rush install`...')
       }
-      utils.setCacheState(cacheKey)
+      else {
+        utils.setCacheState(cacheKey)
+      }
     } catch (error) {
       if (error.name === cache.ValidationError.name) {
         throw error
