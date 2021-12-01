@@ -1,3 +1,5 @@
+const path = require('path')
+
 const State = {
   CachePrimaryKey: 'RUSHJS_HELPER_KEY',
   CacheMatchedKey: 'RUSHJS_HELPER_RESULT'
@@ -11,7 +13,7 @@ const Events = {
 
 const RefKey = 'GITHUB_REF'
 
-const CachePaths = ['common/temp']
+const CachePaths = [path.join('common', 'temp')]
 
 const KeyPrefix = 'rushjs-helper-'
 const RestoreKeys = [

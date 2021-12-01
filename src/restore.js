@@ -24,26 +24,15 @@ async function run() {
 
     const primaryKey = utils.generateCacheKey(core.getInput('package-manager'), workingDirectory)
     core.saveState(State.CachePrimaryKey, primaryKey)
-
+    let cacheKey
     try {
-      const cacheKey = await cache.restoreCache(cachePaths, primaryKey, RestoreKeys)
+      cacheKey = await cache.restoreCache(cachePaths, primaryKey, RestoreKeys)
       if (!cacheKey) {
         core.info(`Cache not found for key: ${[primaryKey, ...RestoreKeys].join(', ')}.`)
         core.info('Executing `rush install`...')
-        await utils.runRushInstall()
-        return
       }
-
-      utils.setCacheState(cacheKey)
-
-      // always run rush install
-      await utils.runRushInstall(workingDirectory)
-      core.info(`Cache restored from key: ${cacheKey}`)
-
-      // run rush build if specified
-      if (build == "true") {
-        core.info('Executing `rush build`...')
-        await utils.runRushBuild(workingDirectory)
+      else {
+        utils.setCacheState(cacheKey)
       }
     } catch (error) {
       if (error.name === cache.ValidationError.name) {
@@ -52,7 +41,17 @@ async function run() {
         utils.logWarning(error.message)
       }
     }
+    // always run rush install
+    await utils.runRushInstall(workingDirectory)
+    core.info(`Cache restored from key: ${cacheKey}`)
+
+    // run rush build if specified
+    if (build == "true") {
+      core.info('Executing `rush build`...')
+      await utils.runRushBuild(workingDirectory)
+    }
   } catch (error) {
+    console.log(error)
     core.setFailed(error.message)
   }
 }
