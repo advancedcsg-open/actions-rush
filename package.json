@@ -33,16 +33,16 @@
     "hasha": "^5.2.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.0.2",
-    "@commitlint/config-conventional": "^15.0.0",
-    "@vercel/ncc": "^0.32.0",
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "@vercel/ncc": "^0.34.0",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.2.0",
     "husky": "^7.0.4",
     "jest": "^27.3.1",
     "nock": "^13.2.1",
-    "standard": "^16.0.4"
+    "standard": "^17.0.0"
   },
   "standard": {
     "ignore": [
