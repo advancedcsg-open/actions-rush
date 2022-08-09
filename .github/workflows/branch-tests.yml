@@ -18,11 +18,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2.4.1
         with:
-          node-version: '12.x'
+          node-version: '16.x'
       - name: Setup PNPM
         uses: pnpm/action-setup@v2.0.1
         with:
-          version: 6.21.1
+          version: 7.9.0
           run_install: false
       - name: Determine pnpm cache directory
         id: pnpm-cache
@@ -39,6 +39,7 @@ jobs:
         run: pnpm install && pnpm test
 
   test-save:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

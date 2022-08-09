@@ -24,7 +24,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2.4.1
         with:
-          node-version: '12.x'
+          node-version: '16.x'
       - name: Determine npm cache directory
         id: npm-cache
         run: |
@@ -39,7 +39,7 @@ jobs:
       - name: Setup PNPM
         uses: pnpm/action-setup@v2.0.1
         with:
-          version: 6.20.1
+          version: 7.9.0
           run_install: true
       - name: Build & Test
         run: pnpm test
