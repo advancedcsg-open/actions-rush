@@ -57059,7 +57059,8 @@ function isValidEvent () {
 async function runRushInstall (workingDirectory) {
   return exec.exec('node', [
     'common/scripts/install-run-rush.js',
-    'install'
+    'install',
+    '--bypass-policy'
   ], { cwd: workingDirectory })
 }
 
