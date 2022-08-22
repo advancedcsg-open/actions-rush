@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@actions/cache': ^3.0.2
-  '@actions/core': ^1.6.0
+  '@actions/core': ^1.9.1
   '@actions/exec': ^1.1.0
   '@commitlint/cli': ^17.0.3
   '@commitlint/config-conventional': ^17.0.3
@@ -18,7 +18,7 @@ specifiers:
 
 dependencies:
   '@actions/cache': 3.0.2
-  '@actions/core': 1.6.0
+  '@actions/core': 1.9.1
   '@actions/exec': 1.1.0
   hasha: 5.2.2
 
@@ -39,7 +39,7 @@ packages:
   /@actions/cache/3.0.2:
     resolution: {integrity: sha512-XGhWOYgMr3ZHxZ07uFis7dHM1/3xgwASPEm4i5Tb6ag6NbvLY86bb3Nik/EKWV2w1jUTdKEpim5EBalo+glzZQ==}
     dependencies:
-      '@actions/core': 1.6.0
+      '@actions/core': 1.9.1
       '@actions/exec': 1.1.0
       '@actions/glob': 0.1.2
       '@actions/http-client': 2.0.1
@@ -50,10 +50,11 @@ packages:
       uuid: 3.4.0
     dev: false
 
-  /@actions/core/1.6.0:
-    resolution: {integrity: sha512-NB1UAZomZlCV/LmJqkLhNTqtKfFXJZAUPcfl/zqG7EfsQdeUJtaWO98SGbuQ3pydJ3fHl2CvI/51OKYlCYYcaw==}
+  /@actions/core/1.9.1:
+    resolution: {integrity: sha512-5ad+U2YGrmmiw6du20AQW5XuWo7UKN2052FjSV7MX+Wfjf8sCqcsZe62NfgHys4QI4/Y+vQvLKYL8jWtA1ZBTA==}
     dependencies:
-      '@actions/http-client': 1.0.11
+      '@actions/http-client': 2.0.1
+      uuid: 8.3.2
     dev: false
 
   /@actions/exec/1.1.0:
@@ -65,14 +66,8 @@ packages:
   /@actions/glob/0.1.2:
     resolution: {integrity: sha512-SclLR7Ia5sEqjkJTPs7Sd86maMDw43p769YxBOxvPvEWuPEhpAnBsQfENOpXjFYMmhCqd127bmf+YdvJqVqR4A==}
     dependencies:
-      '@actions/core': 1.6.0
+      '@actions/core': 1.9.1
       minimatch: 3.1.2
-    dev: false
-
-  /@actions/http-client/1.0.11:
-    resolution: {integrity: sha512-VRYHGQV1rqnROJqdMvGUbY/Kn8vriQe/F9HR2AlYHzmKuM/p3kjNuXhmdBfcVgsvRWTz5C5XW5xvndZrVBuAYg==}
-    dependencies:
-      tunnel: 0.0.6
     dev: false
 
   /@actions/http-client/2.0.1:
