@@ -16,20 +16,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup Node.js
-        uses: actions/setup-node@v3.4.1
+        uses: actions/setup-node@v3.5.1
         with:
           node-version: '16.x'
       - name: Setup PNPM
-        uses: pnpm/action-setup@v2.2.2
+        uses: pnpm/action-setup@v2.2.4
         with:
           version: 7.9.0
           run_install: false
       - name: Determine pnpm cache directory
         id: pnpm-cache
-        run: |
-          echo "::set-output name=dir::$(pnpm config get cache)"
+        run: echo "dir=$(pnpm config get cache)" >> $GITHUB_OUTPUT
       - name: Restore npm cache
-        uses: actions/cache@v3.0.8
+        uses: actions/cache@v3.0.11
         with:
           path: ${{ steps.pnpm-cache.outputs.dir}}
           key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.json') }}
