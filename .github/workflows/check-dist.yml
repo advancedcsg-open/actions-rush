@@ -24,7 +24,7 @@ jobs:
           node-version: 16.x
 
       - name: Setup PNPM
-        uses: pnpm/action-setup@v2.2.2
+        uses: pnpm/action-setup@v2.2.4
         with:
           version: 7.9.0
           run_install: true
