@@ -49,7 +49,10 @@ jobs:
           working-directory: __tests__/data
       - name: Generate files in common/temp
         shell: bash
-        run: __tests__/create-cache-files.sh ${{ runner.os }} __tests__/data/common/temp
+        run: |
+          echo "test: '$(date)'" > __tests__/data/common/config/rush/pnpm-lock.yaml
+          echo "{ \"test\": \"$(date)\" }" > __tests__/data/rush.json
+          __tests__/create-cache-files.sh ${{ runner.os }} __tests__/data/common/temp
 
   test-restore:
     needs: test-save
