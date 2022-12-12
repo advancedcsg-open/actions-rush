@@ -8,6 +8,16 @@ on:
       - dependabot/**
     paths-ignore:
       - '**.md'
+      - '.github/**'
+      - '.husky/**'
+  pull_request:
+    branches:
+      - main
+      - releases/**
+    paths-ignore:
+      - '**.md'
+      - '.github/**'
+      - '.husky/**'
 
 jobs:
   build:
