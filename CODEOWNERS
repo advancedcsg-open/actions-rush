@@ -1,1 +1,8 @@
-* @actions/actions-runtime
+# default owners
+* @advancedcsg-open/actions-admin
+
+# developers
+*.js @advancedcsg-open/actions-dev
+__tests__/ @advancedcsg-open/actions-dev
+package.json @advancedcsg-open/actions-dev
+pnpm-lock.yaml @advancedcsg-open/actions-dev
