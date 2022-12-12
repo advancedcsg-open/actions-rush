@@ -47,12 +47,17 @@ jobs:
         uses: ./
         with:
           working-directory: __tests__/data
+      - name: Collect test date
+        shell: bash
+        run: echo "testDate='$(date)'" >> $GITHUB_ENV
       - name: Generate files in common/temp
         shell: bash
         run: |
-          echo "test: '$(date)'" > __tests__/data/common/config/rush/pnpm-lock.yaml
-          echo "{ \"test\": \"$(date)\" }" > __tests__/data/rush.json
+          echo "test: '${{ env.testDate }}'" > __tests__/data/common/config/rush/pnpm-lock.yaml
+          echo "{ \"test\": \"${{ env.testDate }}\" }" > __tests__/data/rush.json
           __tests__/create-cache-files.sh ${{ runner.os }} __tests__/data/common/temp
+    outputs:
+      testDate: ${{ env.testDate }}
 
   test-restore:
     needs: test-save
