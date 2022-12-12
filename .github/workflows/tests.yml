@@ -1,18 +1,15 @@
 name: Tests
 
 on:
-  pull_request:
-    branches:
-      - main
-      - releases/**
-    paths-ignore:
-      - '**.md'
   push:
     branches:
       - main
       - releases/**
     paths-ignore:
       - '**.md'
+      - '.github/**'
+      - '.husky/**'
+
 jobs:
   build:
     runs-on: ubuntu-latest
