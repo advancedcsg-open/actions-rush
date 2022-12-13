@@ -1,0 +1,15 @@
+teams:
+  - name: actions-admin
+    users:
+      - Hobbit71
+      - paulmowat
+  - name: actions-dev
+    users:
+      - paulmowat
+      - Hobbit71
+      - MukeshSathyanarayana
+      - pkrawiec-advanced
+      - sachinhandi9611
+      - shahsaurabh210
+      - ManideepDonka
+      - pranav-bhuchhada
