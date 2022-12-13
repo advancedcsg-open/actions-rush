@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - '.github/repository/*'
+      - '.github/repository/**'
 
 jobs:
   validate-users:
@@ -26,7 +26,7 @@ jobs:
           # - add user to repo
           # - add user to team
           # - add team to repo
-          github-token: ${{ secrets.GH_PAT }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const yaml = require('yaml')
             const repo = "${{ github.repository }}".split('/')[1]

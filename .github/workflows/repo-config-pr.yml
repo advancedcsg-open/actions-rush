@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - '.github/repository/*'
+      - '.github/repository/**'
 
 jobs:
   validate-users:
@@ -19,7 +19,7 @@ jobs:
       - uses: actions/github-script@v6
         name: Run scripts
         with:
-          github-token: ${{ secrets.GH_PAT }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const yaml = require('yaml')
 
