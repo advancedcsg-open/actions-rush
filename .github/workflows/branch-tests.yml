@@ -38,7 +38,7 @@ jobs:
         id: pnpm-cache
         run: echo "dir=$(pnpm config get cache)" >> $GITHUB_OUTPUT
       - name: Restore npm cache
-        uses: actions/cache@v3.0.11
+        uses: actions/cache@v3.2.5
         with:
           path: ${{ steps.pnpm-cache.outputs.dir}}
           key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.json') }}
