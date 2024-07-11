@@ -24,21 +24,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v3.5.1
+        uses: actions/setup-node@v4
         with:
-          node-version: '16.x'
+          node-version: '20.x'
       - name: Setup PNPM
-        uses: pnpm/action-setup@v2.2.4
+        uses: pnpm/action-setup@v4
         with:
-          version: 7.9.0
+          version: 8
           run_install: false
       - name: Determine pnpm cache directory
         id: pnpm-cache
         run: echo "dir=$(pnpm config get cache)" >> $GITHUB_OUTPUT
       - name: Restore npm cache
-        uses: actions/cache@v3.0.11
+        uses: actions/cache@v4
         with:
           path: ${{ steps.pnpm-cache.outputs.dir}}
           key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.json') }}
@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: RushJS Helper
         uses: ./
         with:
@@ -74,7 +74,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: RushJS Helper
         uses: ./
         with:
